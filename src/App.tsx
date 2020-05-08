@@ -1,6 +1,8 @@
 import React, { useState, ChangeEvent } from 'react'
-import './App.css'
-import exportZip from 'fiddler-ruleset-generator'
+import { Button, Input, Spin } from 'antd';
+import 'antd/dist/antd.css'
+import generateZipRuleset from 'fiddler-ruleset-generator'
+import { JsonLoader } from './components'
 
 const initDownload = (function () {
   let a = document.createElement("a")
@@ -14,43 +16,21 @@ const initDownload = (function () {
   }
 }())
 
-interface InputFileJsonProps {
-  onChangeJson?: (json: object) => void
-  onStartProcessing?: (...args: any) => void
-}
-
-const InputFileJson = ({
-  onChangeJson = () => { },
-  onStartProcessing = () => { }
-}: InputFileJsonProps) => {
-
-  function onChangeFile(event: ChangeEvent<HTMLInputElement>) {
-    if (event.target?.files?.[0]) {
-      const reader = new FileReader()
-      reader.onload = onReaderLoad
-      reader.readAsText(event.target.files[0])
-    }
-  }
-
-  const onReaderLoad: FileReader['onload'] = (event) => {
-    if (typeof event?.target?.result === 'string') {
-      const data = JSON.parse(event.target.result)
-      onChangeJson(data as object)
-    }
-  }
-
-  return (
-    <input onChange={onChangeFile} type="file"></input>
-  )
-}
-
 function App() {
   const [exportedZip, setExportedZip] = useState(null as null | any)
+  const [mocksPath, setMocksPath] = useState('C:/mocks/' as undefined | string)
+  const [loading, setLoading] = useState(false as boolean)
 
   const onChangeJson = async (data: object) => {
+    setLoading(true)
     const process = async () => {
-      const zip = await exportZip(data, undefined, {type: 'base64'})
-      setExportedZip(zip)
+      try {
+        const zip = await generateZipRuleset(data, mocksPath, { type: 'base64' })
+        setExportedZip(zip)
+      } catch (error) {
+      } finally {
+        setLoading(false)
+      }
     }
     process()
   }
@@ -59,11 +39,17 @@ function App() {
     initDownload(exportedZip, 'generated.zip')
   }
 
+  const onChangeMocksPath = (event: ChangeEvent<HTMLInputElement>) => {
+    setMocksPath(event.target.value)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <InputFileJson onChangeJson={onChangeJson} />
-        {exportedZip && <button onClick={onClickDownload}>Download</button>}
+        <JsonLoader onChangeJson={onChangeJson} />
+        <Input onChange={onChangeMocksPath} value={mocksPath} />
+        {exportedZip && <Button onClick={onClickDownload}>Download</Button>}
+        {loading && <Spin />}
       </header>
     </div>
   )
