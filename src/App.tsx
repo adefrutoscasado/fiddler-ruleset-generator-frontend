@@ -1,8 +1,9 @@
 import React, { useState, ChangeEvent } from 'react'
-import { Button, Input, Spin } from 'antd';
+import { Button, Input, Checkbox, Layout } from 'antd'
 import 'antd/dist/antd.css'
 import generateZipRuleset from 'fiddler-ruleset-generator'
 import { JsonLoader } from './components'
+const { Header, Footer, Sider, Content } = Layout
 
 const initDownload = (function () {
   let a = document.createElement("a")
@@ -10,22 +11,29 @@ const initDownload = (function () {
   // @ts-ignore
   a.style = "display: none"
   return function (data: any, fileName: string) {
-    a.href = "data:application/zip;base64," + data; //Image Base64 Goes here
-    a.download = "generated.zip"; //File name Here
-    a.click(); //Downloaded file
+    a.href = "data:application/zip;base64," + data //Image Base64 Goes here
+    a.download = fileName //File name Here
+    a.click() //Downloaded file
   }
 }())
 
 function App() {
+  const [loadedJson, setLoadedJson] = useState(null as null | object)
   const [exportedZip, setExportedZip] = useState(null as null | any)
   const [mocksPath, setMocksPath] = useState('C:/mocks/' as undefined | string)
+  const [useJsonOnSuccess, setUseJsonOnSuccess] = useState(true as boolean)
   const [loading, setLoading] = useState(false as boolean)
 
-  const onChangeJson = async (data: object) => {
-    setLoading(true)
+  const generateExport = () => {
+    setExportedZip(null)
     const process = async () => {
+      setLoading(true)
+      const exportOptions = {
+        mocksPath,
+        useJsonOnSuccess
+      }
       try {
-        const zip = await generateZipRuleset(data, mocksPath, { type: 'base64' })
+        const zip = await generateZipRuleset(loadedJson, { type: 'base64' }, exportOptions)
         setExportedZip(zip)
       } catch (error) {
       } finally {
@@ -33,6 +41,10 @@ function App() {
       }
     }
     process()
+  }
+
+  const onChangeJson = (data: object) => {
+    setLoadedJson(data)
   }
 
   const onClickDownload = () => {
@@ -43,15 +55,20 @@ function App() {
     setMocksPath(event.target.value)
   }
 
+  const onChangeUseJson = () => {
+    setUseJsonOnSuccess(useJsonOnSuccess => !useJsonOnSuccess)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
+    <Layout>
+      <Content>
         <JsonLoader onChangeJson={onChangeJson} />
         <Input onChange={onChangeMocksPath} value={mocksPath} />
-        {exportedZip && <Button onClick={onClickDownload}>Download</Button>}
-        {loading && <Spin />}
-      </header>
-    </div>
+        <Checkbox onChange={onChangeUseJson} checked={useJsonOnSuccess}/>
+        <Button onClick={generateExport} disabled={!loadedJson} loading={loading}>Generate</Button>
+        <Button onClick={onClickDownload} disabled={!exportedZip} loading={!loadedJson && loading}>Download</Button>
+      </Content>
+    </Layout>
   )
 }
 
