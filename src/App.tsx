@@ -10,22 +10,24 @@ const initDownload = (function () {
   document.body.appendChild(a)
   // @ts-ignore
   a.style = "display: none"
-  return function (data: any, fileName: string) {
+  return function (data: string, fileName: string) {
+    console.time('starts base64');
     a.href = "data:application/zip;base64," + data //Image Base64 Goes here
     a.download = fileName //File name Here
+    console.timeEnd('starts base64');
     a.click() //Downloaded file
   }
 }())
 
 function App() {
   const [loadedJson, setLoadedJson] = useState(null as null | object)
-  const [exportedZip, setExportedZip] = useState(null as null | any)
+  const [zipExport, setZipExport] = useState(null as null | any)
   const [mocksPath, setMocksPath] = useState('C:/mocks/' as undefined | string)
   const [useJsonOnSuccess, setUseJsonOnSuccess] = useState(true as boolean)
   const [loading, setLoading] = useState(false as boolean)
 
-  const generateExport = () => {
-    setExportedZip(null)
+  const generateZipExport = () => {
+    setZipExport(null)
     const process = async () => {
       setLoading(true)
       const exportOptions = {
@@ -34,7 +36,7 @@ function App() {
       }
       try {
         const zip = await generateZipRuleset(loadedJson, { type: 'base64' }, exportOptions)
-        setExportedZip(zip)
+        setZipExport(zip)
       } catch (error) {
       } finally {
         setLoading(false)
@@ -48,7 +50,7 @@ function App() {
   }
 
   const onClickDownload = () => {
-    initDownload(exportedZip, 'generated.zip')
+    initDownload(zipExport, 'generated.zip')
   }
 
   const onChangeMocksPath = (event: ChangeEvent<HTMLInputElement>) => {
@@ -65,8 +67,8 @@ function App() {
         <JsonLoader onChangeJson={onChangeJson} />
         <Input onChange={onChangeMocksPath} value={mocksPath} />
         <Checkbox onChange={onChangeUseJson} checked={useJsonOnSuccess}/>
-        <Button onClick={generateExport} disabled={!loadedJson} loading={loading}>Generate</Button>
-        <Button onClick={onClickDownload} disabled={!exportedZip} loading={!loadedJson && loading}>Download</Button>
+        <Button onClick={generateZipExport} disabled={!loadedJson} loading={loading}>Generate</Button>
+        <Button onClick={onClickDownload} disabled={!zipExport} loading={!loadedJson && loading}>Download</Button>
       </Content>
     </Layout>
   )
