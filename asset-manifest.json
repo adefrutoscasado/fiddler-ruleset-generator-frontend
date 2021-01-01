@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/fiddler-ruleset-generator-frontend/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/fiddler-ruleset-generator-frontend/static/js/main.59a213eb.chunk.js",
-    "main.js.map": "/fiddler-ruleset-generator-frontend/static/js/main.59a213eb.chunk.js.map",
-    "runtime-main.js": "/fiddler-ruleset-generator-frontend/static/js/runtime-main.c3cf24c7.js",
-    "runtime-main.js.map": "/fiddler-ruleset-generator-frontend/static/js/runtime-main.c3cf24c7.js.map",
-    "static/css/2.35fcc229.chunk.css": "/fiddler-ruleset-generator-frontend/static/css/2.35fcc229.chunk.css",
-    "static/js/2.1e80424c.chunk.js": "/fiddler-ruleset-generator-frontend/static/js/2.1e80424c.chunk.js",
-    "static/js/2.1e80424c.chunk.js.map": "/fiddler-ruleset-generator-frontend/static/js/2.1e80424c.chunk.js.map",
-    "index.html": "/fiddler-ruleset-generator-frontend/index.html",
-    "precache-manifest.6c3d28a0288a24adf31462750e1783f0.js": "/fiddler-ruleset-generator-frontend/precache-manifest.6c3d28a0288a24adf31462750e1783f0.js",
-    "service-worker.js": "/fiddler-ruleset-generator-frontend/service-worker.js",
-    "static/css/2.35fcc229.chunk.css.map": "/fiddler-ruleset-generator-frontend/static/css/2.35fcc229.chunk.css.map",
-    "static/css/main.5ecd60fb.chunk.css.map": "/fiddler-ruleset-generator-frontend/static/css/main.5ecd60fb.chunk.css.map",
-    "static/js/2.1e80424c.chunk.js.LICENSE.txt": "/fiddler-ruleset-generator-frontend/static/js/2.1e80424c.chunk.js.LICENSE.txt"
+    "main.css": "/fiddler-ruleset-generator/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/fiddler-ruleset-generator/static/js/main.546a9649.chunk.js",
+    "main.js.map": "/fiddler-ruleset-generator/static/js/main.546a9649.chunk.js.map",
+    "runtime-main.js": "/fiddler-ruleset-generator/static/js/runtime-main.a68aa943.js",
+    "runtime-main.js.map": "/fiddler-ruleset-generator/static/js/runtime-main.a68aa943.js.map",
+    "static/css/2.35fcc229.chunk.css": "/fiddler-ruleset-generator/static/css/2.35fcc229.chunk.css",
+    "static/js/2.1e80424c.chunk.js": "/fiddler-ruleset-generator/static/js/2.1e80424c.chunk.js",
+    "static/js/2.1e80424c.chunk.js.map": "/fiddler-ruleset-generator/static/js/2.1e80424c.chunk.js.map",
+    "index.html": "/fiddler-ruleset-generator/index.html",
+    "precache-manifest.db042983278758ed99c7dd462581f322.js": "/fiddler-ruleset-generator/precache-manifest.db042983278758ed99c7dd462581f322.js",
+    "service-worker.js": "/fiddler-ruleset-generator/service-worker.js",
+    "static/css/2.35fcc229.chunk.css.map": "/fiddler-ruleset-generator/static/css/2.35fcc229.chunk.css.map",
+    "static/css/main.5ecd60fb.chunk.css.map": "/fiddler-ruleset-generator/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.1e80424c.chunk.js.LICENSE.txt": "/fiddler-ruleset-generator/static/js/2.1e80424c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.c3cf24c7.js",
+    "static/js/runtime-main.a68aa943.js",
     "static/css/2.35fcc229.chunk.css",
     "static/js/2.1e80424c.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.59a213eb.chunk.js"
+    "static/js/main.546a9649.chunk.js"
   ]
 }
