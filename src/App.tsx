@@ -1,8 +1,9 @@
 import React, { useState, ChangeEvent } from 'react'
-import { Button, Input, Checkbox, Layout } from 'antd'
+import { Button, Input, Checkbox, Layout, Tooltip } from 'antd'
 import 'antd/dist/antd.css'
 import generateZipRuleset from 'fiddler-ruleset-generator'
 import { JsonLoader } from './components'
+import { InfoCircleOutlined } from '@ant-design/icons';
 const { Header, Footer, Sider, Content } = Layout
 
 const initDownload = (function () {
@@ -63,12 +64,32 @@ function App() {
 
   return (
     <Layout>
-      <Content>
-        <JsonLoader onChangeJson={onChangeJson} />
-        <Input onChange={onChangeMocksPath} value={mocksPath} />
-        <Checkbox onChange={onChangeUseJson} checked={useJsonOnSuccess}/>
-        <Button onClick={generateZipExport} disabled={!loadedJson} loading={loading}>Generate</Button>
-        <Button onClick={onClickDownload} disabled={!zipExport} loading={!loadedJson && loading}>Download</Button>
+      <Content className='content'>
+        <Tooltip placement="right" title={'All process is executed at client-side, no information will be sent to any server.'}>
+          <div>
+            <span>Select a HAR file from your computer{'   '}<InfoCircleOutlined /></span>
+          </div>
+        </Tooltip>
+        <div className={'row-center'}>
+          <JsonLoader onChangeJson={onChangeJson} />
+        </div>
+        <div>
+        <Tooltip placement="right" title={'The path where you should place the generated mocks. Fiddler will read from here the generated responses.'}>
+          <span>Path of the mocks</span>
+        </Tooltip>
+        </div>
+        <div>
+          <Input onChange={onChangeMocksPath} value={mocksPath} />
+        </div>
+        <div>
+          <Tooltip placement="right" title={'This option will create mocks in json format, that are easier to modify to test different cases (200 OK respones only).'}>
+            <Checkbox onChange={onChangeUseJson} checked={useJsonOnSuccess}>Use json files for application/json responses</Checkbox>
+          </Tooltip>
+        </div>
+        <div className={'row-center'}>
+          <Button onClick={generateZipExport} disabled={!loadedJson} loading={loading}>Generate</Button>
+          <Button onClick={onClickDownload} disabled={!zipExport} loading={!loadedJson && loading}>Download</Button>
+        </div>
       </Content>
     </Layout>
   )

@@ -59,8 +59,8 @@ export const JsonLoader = ({
   return (
     <Upload name='file' onChange={onChangeUpload} showUploadList multiple={false} beforeUpload={() => false} accept={'application/har+json'} >
       <Button>
-        <UploadOutlined /> Load Har
-        </Button>
+        <UploadOutlined /> Upload HAR file
+      </Button>
     </Upload>
   )
 }
