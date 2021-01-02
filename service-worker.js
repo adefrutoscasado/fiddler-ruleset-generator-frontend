@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/fiddler-ruleset-generator-frontend/precache-manifest.6c3d28a0288a24adf31462750e1783f0.js"
+  "/fiddler-ruleset-generator-frontend/precache-manifest.08be112cc00b1d4e2943d4975ec1779e.js"
 );
 
 self.addEventListener('message', (event) => {
